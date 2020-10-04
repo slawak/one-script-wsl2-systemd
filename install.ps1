@@ -1,6 +1,6 @@
 param($Distro, $User)
 
-$repoUrl = 'https://github.com/diddlesnaps/one-script-wsl2-systemd/raw/master/'
+$repoUrl = 'https://github.com/slawak/one-script-wsl2-systemd/raw/master/'
 
 # The main files to install.
 $files = @{
@@ -70,7 +70,7 @@ function Add-WslFile($User, $Uri, $File, $Replacements) {
             }
             if ($Replacements) {
                 $Replacements.keys | ForEach-Object {
-                    $content = $content.Replace($_, $relayexe).Replace($Replacements[$_], $gpgsock)
+                    $content = $content.Replace($_, $Replacements[$_])
                 }
             }
             Invoke-WslCommand -User $User -Command "
