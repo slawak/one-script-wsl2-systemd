@@ -79,7 +79,7 @@ try {
         }
 
         $latest = (Invoke-RestMethod -Uri 'https://api.github.com/repos/diddlesnaps/WSL2-Linux-Kernel/releases' -UseBasicParsing)[0]
-        $latest_version = [version]$latest.tag_name.Remove($latest.tag_name.IndexOf('-microsoft-snapd'))
+        $latest_version = [version]$latest.tag_name.Replace('-microsoft-snapd', '').Replace('linux-msft-snapd-' ,'')
         $current_version = [version](Get-Content "$env:APPDATA/wsl2-custom-kernel-version.txt")
         if ($latest_version -gt $current_version) {
             $assets = $latest.assets | Where-Object { $_.name -Like '*-x86_64' }
